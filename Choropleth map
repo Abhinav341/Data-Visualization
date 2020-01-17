@@ -1,0 +1,28 @@
+Here we create a Choropleth map to visualize crime in San Francisco.
+
+# Importing libraries
+
+import pandas as pd
+import folium
+
+sfo_geo = r'https://cocl.us/sanfran_geojson' 
+
+sfo_map = folium.Map(location=[37.7749, -122.4194], zoom_start=12)
+df_sfo = pd.read_csv("Police_Department_Incidents_-_Previous_Year__2016_.csv")
+df_sfo=df_sfo.groupby(['PdDistrict'])['PdDistrict'].count()
+df_sfo=pd.DataFrame({'Neighborhood':df_sfo.index, 'Count':df_sfo.values})
+df_sfo=df_sfo[['Neighborhood','Count']]
+
+sfo_map.choropleth(
+    geo_data=sfo_geo,
+    data=df_sfo,
+    columns=['Neighborhood', 'Count'],
+    key_on='feature.properties.DISTRICT',
+    fill_color='YlOrRd', 
+    fill_opacity=0.7, 
+    line_opacity=0.2,
+    legend_name='Crime Rate in San Francisco'
+)
+
+# display map
+sfo_map
