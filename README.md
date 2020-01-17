@@ -1,0 +1,1 @@
+Here I have tried to visualize data using python libraries like Matplotlib and Folium. Have created a chloropleth map of San Francisco using Folium package to visualize crime and a bar chart to see peoples' interest in various data science topics. 
