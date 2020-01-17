@@ -1,0 +1,40 @@
+A survey was conducted to gauge an audience interest in different data science topics, namely:
+
+1. Big Data (Spark / Hadoop)
+2. Data Analysis / Statistics
+3. Data Journalism
+4. Data Visualization
+5. Deep Learning
+6. Machine Learning
+The participants had three options for each topic: Very Interested, Somewhat interested, and Not interested. 2,233 respondents completed the survey.
+
+We create a bar chart to visualize the percentage of the respondents' interest in the different data science topics surveyed.
+
+# Importing Libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Reading Data
+df1=pd.read_csv("Topic_Survey_Assignment.csv",index_col=0)
+df1=df1.sort_values(by=['Very interested'],ascending=False)
+df1=df1.apply(lambda x: round((x/2233)*100,2))
+
+# Creating Bar Chart
+plt.figure(figsize=(20,8))
+plt.title("Percentage of Respondents' Interest in Data Science Areas",fontsize=16)
+bar1= plt.bar(x=[0.4,3.2,6,8.8,11.6,14.4], height=df1['Very interested'], width=0.8,color='#5cb85c')
+bar2= plt.bar(x=[1.2,4,6.8,9.6,12.4,15.2], height=df1['Somewhat interested'], width=0.8,color='#5bc0de')              
+bar3= plt.bar(x=[2,4.8,7.6,10.4,13.2,16], height=df1['Not interested'], width=0.8,color='#d9534f')                
+plt.xticks([1.2,4,6.8,9.6,12.4,15.2],list(df1.index),rotation=90,fontsize=14) 
+for i in range(6):
+    plt.text(x = 2.8*i , y = df1['Very interested'][i]+1, s = str(df1['Very interested'][i])+' %', size = 14)
+    plt.text(x = 0.8+2.8*i , y = df1['Somewhat interested'][i]+1, s = str(df1['Somewhat interested'][i])+' %', size = 14)
+    plt.text(x = 1.6+2.8*i , y = df1['Not interested'][i]+1, s = str(df1['Not interested'][i])+' %', size = 14)         
+plt.legend(('Very interested','Somewhat interested','Not interested'),loc='upper right',fontsize=14)
+
+ax = plt.axes()
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.axes.get_yaxis().set_visible(False)
+
